@@ -13,7 +13,7 @@
 #'fars_read(filename = "data/accident_2013.csv.bz2")
 #'fars_read(filename = "data/accident_2014.csv.bz2")
 #'fars_read(filename = "data/accident_2015.csv.bz2")
-#'fars_read(filename = "file_does_not_exist.csv") # Results in an error
+#'\dontrun{fars_read(filename = "file_does_not_exist.csv")} # Results in an error
 #'
 #'@import Requires the \code{readr} package.
 #'
@@ -45,7 +45,7 @@ fars_read <- function(filename) {
 #'
 make_filename <- function(year) {
   year <- as.integer(year)
-  sprintf("accident_%d.csv.bz2", year)
+  sprintf("data/accident_%d.csv.bz2", year)
 }
 
 #'@title Read in one or more years of FARS data.
@@ -97,10 +97,11 @@ fars_read_years <- function(years) {
 #'fars_summarize_years(years = 2014)   # Monthly fatality summaries for 2014.
 #'years <- c(2013, 2014, 2015)
 #'fars_summarize_years(years = years)     # Summary table for 2013-2015.
-#'fars_summarize_years(years = 14)        # Will return an error.
+#'\dontrun{fars_summarize_years(years = 14)}        # Will return an error.
 #'
 #'@import Requires the \code{readr}, \code{dplyr} and \code{tidyr} packages.
 #'
+#'@export
 fars_summarize_years <- function(years) {
   dat_list <- fars_read_years(years)
   dplyr::bind_rows(dat_list) %>% 
@@ -123,10 +124,11 @@ fars_summarize_years <- function(years) {
 #'
 #'@examples
 #'fars_map_state(state.num = 10, year = 2014)     # Returns a map for state 10.
-#'make_filename(state.num = 100, year = 2014)     # Returns an error.
+#'fars_map_state(state.num = 100, year = 2014)     # Returns an error.
 #'@import Requires the \code{readr}, \code{maps}, \code{graphics},
 #' and \code{dplyr} packages.
 #'
+#'@export
 fars_map_state <- function(state.num, year) {
   filename <- make_filename(year)
   data <- fars_read(filename)

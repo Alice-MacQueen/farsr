@@ -1,11 +1,20 @@
 Package: farsr
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Functions to Examine FARS Data
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
+Authors@R: person("Alice", "MacQueen", role = c("aut", "cre"), email = "alice.macqueen@utexas.edu")
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
+Imports:
+    dplyr,
+    graphics,
+    maps,
+    readr,
+    tidyr
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
