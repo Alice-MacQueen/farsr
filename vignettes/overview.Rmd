@@ -18,8 +18,7 @@ library(magrittr)
 library(farsr)
 ```
 
-This package takes data compiled by the Fatality Analysis Reporting System and 
-outputs graphs and tables of this data.
+This package takes data compiled by the Fatality Analysis Reporting System and outputs graphs and tables of this data.
 
 ## Example Output Figures for FARS Data
 
