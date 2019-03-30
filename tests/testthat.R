@@ -1,9 +1,8 @@
 library(testthat)
 library(farsr)
 
-test_that("fars_read_years works", {
-  df1 <- fars_read_years(years = 2014)
-  expect_equivalent(nrow(df1[[1]]), 30056)
+test_that("fars_read works", {
+  expect_error(fars_read(filename = "file_does_not_exist.txt"))
 })
 
 test_that("fars_read_years works", {

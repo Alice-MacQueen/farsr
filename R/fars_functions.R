@@ -1,6 +1,6 @@
 #'@title Read Fatality Analysis Reporting System data
 #'
-#'@description \code{fars_read} reads in Fatality Analysis Reporting System (FARS) data  
+#'@description \code{fars_read} reads in Fatality Analysis Reporting System (FARS) data
 #'for a given \code{filename}, if the file exists.
 #'
 #'@usage fars_read(filename)
@@ -55,14 +55,14 @@ make_filename <- function(year) {
 #'
 #'@usage fars_read_years(years)
 #'
-#'@param years A year or vector of four-digit years for which you want to read 
+#'@param years A year or vector of four-digit years for which you want to read
 #' in FARS data.
 #'
 #'@return  A table or list of tables of FARS data.
 #'
 #'@examples
 #'fars_read_years(years = 2014)   # Returns FARS data for the year 2014.
-#' years <- c(2013, 2014, 2015) 
+#' years <- c(2013, 2014, 2015)
 #' fars_read_years(years = years) # Returns a list of three tables of FARS data.
 #' fars_read_years(years = 14)    # Results in an invalid year error.
 #'
@@ -73,7 +73,7 @@ fars_read_years <- function(years) {
     file <- make_filename(year)
     tryCatch({
       dat <- fars_read(file)
-      dplyr::mutate(dat, year = year) %>% 
+      dplyr::mutate(dat, year = year) %>%
         dplyr::select(MONTH, year)
     }, error = function(e) {
       warning("invalid year: ", year)
@@ -84,7 +84,7 @@ fars_read_years <- function(years) {
 
 #'@title FARS Monthly Fatality Summaries
 #'
-#'@description Creates summaries of monthly fatalities using Fatality Analysis 
+#'@description Creates summaries of monthly fatalities using Fatality Analysis
 #' Reporting System data for a specified year or years.
 #'
 #'@usage fars_summarize_years(years)
@@ -99,20 +99,21 @@ fars_read_years <- function(years) {
 #'fars_summarize_years(years = years)     # Summary table for 2013-2015.
 #'\dontrun{fars_summarize_years(years = 14)}        # Will return an error.
 #'
-#'@import Requires the \code{readr}, \code{dplyr} and \code{tidyr} packages.
+#'@import Requires the \code{readr}, \code{dplyr}, \code{magrittr}
+#' and \code{tidyr} packages.
 #'
 #'@export
 fars_summarize_years <- function(years) {
   dat_list <- fars_read_years(years)
-  dplyr::bind_rows(dat_list) %>% 
-    dplyr::group_by(year, MONTH) %>% 
+  dplyr::bind_rows(dat_list) %>%
+    dplyr::group_by(year, MONTH) %>%
     dplyr::summarize(n = n()) %>%
     tidyr::spread(year, n)
 }
 
 #'@title Plot FARS fatalities for a state and year.
 #'
-#'@description Makes a plot of Fatality Analysis Reporting System (FARS) 
+#'@description Makes a plot of Fatality Analysis Reporting System (FARS)
 #' data for a given state number and year.
 #'
 #'@usage make_filename(year)
@@ -133,7 +134,7 @@ fars_map_state <- function(state.num, year) {
   filename <- make_filename(year)
   data <- fars_read(filename)
   state.num <- as.integer(state.num)
-  
+
   if(!(state.num %in% unique(data$STATE)))
     stop("invalid STATE number: ", state.num)
   data.sub <- dplyr::filter(data, STATE == state.num)
