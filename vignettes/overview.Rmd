@@ -26,7 +26,6 @@ You are able to map fatalities for a particular year and state by specifying
 a state number and year in `fars_map_state`.
 
 ```{r, fig.show='hold'}
-setwd("..")
 fars_map_state(state.num = 10, year = 2014)
 fars_map_state(state.num = 11, year = 2014)
 ```
