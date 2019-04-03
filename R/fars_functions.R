@@ -22,7 +22,7 @@ fars_read <- function(filename, path = "inst/extdata") {
     stop("file '", filename, "' does not exist on this path")
   if(path == "inst/extdata"){
     data <- suppressMessages({
-      readr::read_csv(system.file("extdata", filename, package = "farsr"),
+      readr::read_csv(system.file("inst/extdata", filename, package = "farsr"),
                       progress = FALSE)
   })
   } else{
