@@ -25,9 +25,11 @@ This package takes data compiled by the Fatality Analysis Reporting System and o
 You are able to map fatalities for a particular year and state by specifying 
 a state number and year in `fars_map_state`.
 
+Turns out it's really hard to get vignettes working with raw data.
+
 ```{r, fig.show='hold'}
-fars_map_state(state.num = 10, year = 2014)
-fars_map_state(state.num = 11, year = 2014)
+# fars_map_state(state.num = 10, year = 2014)
+# fars_map_state(state.num = 11, year = 2014)
 ```
 
 ## Example Summary Table for FARS Data
@@ -36,7 +38,7 @@ You can also output a summary table of monthly fatalities for each year of FARS
 data. The following will output a table for the year 2014:
 
 ```{r, echo=FALSE, results='asis'}
-knitr::kable(fars_summarize_years(years = 2014))
+# knitr::kable(fars_summarize_years(years = 2014))
 ```
 
 
