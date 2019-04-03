@@ -17,8 +17,8 @@ A filename for a file containing FARS data.
 (FARS) filename for a given four digit \code{year}.
 }
 \examples{
-make_filename(year = 2014)   # Makes FARS filename for the year 2014.
-make_filename(year = 14)     # Will not make a working FARS filename.
+\dontrun{make_filename(year = 2014)}   # Makes FARS filename for the year 2014.
+\dontrun{make_filename(year = 14)}     # Will not make a working FARS filename.
 
 
 }

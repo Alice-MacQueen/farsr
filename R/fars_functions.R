@@ -19,6 +19,7 @@
 #'
 #' @import readr
 #'
+#' @export
 fars_read <- function(filename, path = "inst/extdata") {
   if(!file.exists(file.path(path, filename)))
     stop("file '", filename, "' does not exist on this path")
@@ -50,7 +51,7 @@ fars_read <- function(filename, path = "inst/extdata") {
 #' \dontrun{make_filename(year = 2014)}   # Makes FARS filename for the year 2014.
 #' \dontrun{make_filename(year = 14)}     # Will not make a working FARS filename.
 #'
-#'
+#' @export
 make_filename <- function(year) {
   year <- as.integer(year)
   sprintf("accident_%d.csv.bz2", year)
@@ -74,7 +75,7 @@ make_filename <- function(year) {
 #' \dontrun{fars_read_years(years = years)} # Returns a list of three tables of FARS data.
 #' \dontrun{fars_read_years(years = 14)}    # Results in an invalid year error.
 #'
-#'
+#' @export
 fars_read_years <- function(years) {
   lapply(years, function(year) {
     file <- make_filename(year)

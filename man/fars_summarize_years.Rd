@@ -17,9 +17,9 @@ Creates summaries of monthly fatalities using Fatality Analysis
 Reporting System data for a specified year or years.
 }
 \examples{
-fars_summarize_years(years = 2014)   # Monthly fatality summaries for 2014.
+\dontrun{fars_summarize_years(years = 2014)}   # Monthly fatality summaries for 2014.
 years <- c(2013, 2014, 2015)
-fars_summarize_years(years = years)     # Summary table for 2013-2015.
+\dontrun{fars_summarize_years(years = years)}     # Summary table for 2013-2015.
 \dontrun{fars_summarize_years(years = 14)}        # Will return an error.
 
 }

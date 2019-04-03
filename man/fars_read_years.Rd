@@ -18,10 +18,10 @@ Reads in Fatality Analysis Reporting System data for one or more
 years.
 }
 \examples{
-fars_read_years(years = 2014)   # Returns FARS data for the year 2014.
+\dontrun{fars_read_years(years = 2014)}   # Returns FARS data for the year 2014.
 years <- c(2013, 2014, 2015)
-fars_read_years(years = years) # Returns a list of three tables of FARS data.
-fars_read_years(years = 14)    # Results in an invalid year error.
+\dontrun{fars_read_years(years = years)} # Returns a list of three tables of FARS data.
+\dontrun{fars_read_years(years = 14)}    # Results in an invalid year error.
 
 
 }

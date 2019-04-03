@@ -19,7 +19,7 @@ Makes a plot of Fatality Analysis Reporting System (FARS)
 data for a given state number and year.
 }
 \examples{
-fars_map_state(state.num = 10, year = 2014)     # Returns a map for state 10.
-fars_map_state(state.num = 100, year = 2014)     # Returns an error.
+\dontrun{fars_map_state(state.num = 10, year = 2014)}     # Returns a map for state 10.
+\dontrun{fars_map_state(state.num = 100, year = 2014)}     # Returns an error.
 
 }

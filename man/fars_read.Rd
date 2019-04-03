@@ -7,7 +7,10 @@
 fars_read(filename)
 }
 \arguments{
-\item{filename}{The name (and path to) the FARS data file to read.}
+\item{filename}{The name of the FARS data file to read.}
+
+\item{path}{The path to the FARS data file to read. The default is the path
+to the three supplied raw data files.}
 }
 \value{
 A table of FARS data.
@@ -17,9 +20,9 @@ A table of FARS data.
 for a given \code{filename}, if the file exists.
 }
 \examples{
-fars_read(filename = "data/accident_2013.csv.bz2")
-fars_read(filename = "data/accident_2014.csv.bz2")
-fars_read(filename = "data/accident_2015.csv.bz2")
-\dontrun{fars_read(filename = "file_does_not_exist.csv")} # Results in an error
+\dontrun{fars_read(filename = "accident_2013.csv.bz2")}
+\dontrun{fars_read(filename = "accident_2014.csv.bz2"))}
+\dontrun{fars_read(filename = "accident_2015.csv.bz2")}
+\dontrun{fars_read(filename = "file_does_not_exist.csv", path = "bad/path")} # Results in an error
 
 }
