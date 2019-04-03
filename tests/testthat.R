@@ -1,4 +1,4 @@
-library(testthat)
+require(testthat)
 library(farsr)
 
 test_that("fars_read works", {

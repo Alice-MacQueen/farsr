@@ -5,15 +5,17 @@
 #'
 #' @usage fars_read(filename)
 #'
-#' @param filename The name (and path to) the FARS data file to read.
+#' @param filename The name of the FARS data file to read.
+#' @param path The path to the FARS data file to read. The default is the path
+#' to the three supplied raw data files.
 #'
 #' @return A table of FARS data.
 #'
 #' @examples
-#'fars_read(filename = "accident_2013.csv.bz2")
-#'fars_read(filename = "accident_2014.csv.bz2"))
-#'fars_read(filename = "accident_2015.csv.bz2")
-#'\dontrun{fars_read(filename = "file_does_not_exist.csv", path = "bad/path")} # Results in an error
+#' \dontrun{fars_read(filename = "accident_2013.csv.bz2")}
+#' \dontrun{fars_read(filename = "accident_2014.csv.bz2"))}
+#' \dontrun{fars_read(filename = "accident_2015.csv.bz2")}
+#' \dontrun{fars_read(filename = "file_does_not_exist.csv", path = "bad/path")} # Results in an error
 #'
 #' @import readr
 #'
@@ -45,8 +47,8 @@ fars_read <- function(filename, path = "inst/extdata") {
 #' @return A filename for a file containing FARS data.
 #'
 #' @examples
-#'make_filename(year = 2014)   # Makes FARS filename for the year 2014.
-#'make_filename(year = 14)     # Will not make a working FARS filename.
+#' \dontrun{make_filename(year = 2014)}   # Makes FARS filename for the year 2014.
+#' \dontrun{make_filename(year = 14)}     # Will not make a working FARS filename.
 #'
 #'
 make_filename <- function(year) {
@@ -67,10 +69,10 @@ make_filename <- function(year) {
 #' @return  A table or list of tables of FARS data.
 #'
 #' @examples
-#'fars_read_years(years = 2014)   # Returns FARS data for the year 2014.
+#' \dontrun{fars_read_years(years = 2014)}   # Returns FARS data for the year 2014.
 #' years <- c(2013, 2014, 2015)
-#' fars_read_years(years = years) # Returns a list of three tables of FARS data.
-#' fars_read_years(years = 14)    # Results in an invalid year error.
+#' \dontrun{fars_read_years(years = years)} # Returns a list of three tables of FARS data.
+#' \dontrun{fars_read_years(years = 14)}    # Results in an invalid year error.
 #'
 #'
 fars_read_years <- function(years) {
@@ -99,10 +101,10 @@ fars_read_years <- function(years) {
 #' @return A summary table of monthly fatalities for each year of FARS data.
 #'
 #' @examples
-#'fars_summarize_years(years = 2014)   # Monthly fatality summaries for 2014.
+#' \dontrun{fars_summarize_years(years = 2014)}   # Monthly fatality summaries for 2014.
 #'years <- c(2013, 2014, 2015)
-#'fars_summarize_years(years = years)     # Summary table for 2013-2015.
-#'\dontrun{fars_summarize_years(years = 14)}        # Will return an error.
+#' \dontrun{fars_summarize_years(years = years)}     # Summary table for 2013-2015.
+#' \dontrun{fars_summarize_years(years = 14)}        # Will return an error.
 #'
 #' @import readr tidyr magrittr dplyr
 #'
@@ -128,15 +130,15 @@ fars_summarize_years <- function(years) {
 #' @return A maps object.
 #'
 #' @examples
-#'fars_map_state(state.num = 10, year = 2014)     # Returns a map for state 10.
-#'fars_map_state(state.num = 100, year = 2014)     # Returns an error.
+#' \dontrun{fars_map_state(state.num = 10, year = 2014)}     # Returns a map for state 10.
+#' \dontrun{fars_map_state(state.num = 100, year = 2014)}     # Returns an error.
 #'
 #' @import dplyr readr maps graphics
 #'
 #' @export
 fars_map_state <- function(state.num, year) {
-  filename <- make_filename(year)
-  data <- fars_read(filename)
+  filename <- farsr::make_filename(year)
+  data <- farsr::fars_read(filename)
   state.num <- as.integer(state.num)
 
   if(!(state.num %in% unique(data$STATE)))
