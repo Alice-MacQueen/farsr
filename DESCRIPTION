@@ -15,7 +15,8 @@ Imports:
     maps,
     readr,
     testthat,
-    tidyr
+    tidyr,
+    qpdf
 Suggests: 
     knitr,
     rmarkdown

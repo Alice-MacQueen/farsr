@@ -4,10 +4,13 @@
 \alias{fars_summarize_years}
 \title{FARS Monthly Fatality Summaries}
 \usage{
-fars_summarize_years(years)
+fars_summarize_years(years, path = "inst/extdata")
 }
 \arguments{
 \item{years}{The year or years to get monthly summaries of fatalities for.}
+
+\item{path}{The path to the FARS data file to read. The default is the path
+to the three supplied raw data files.}
 }
 \value{
 A summary table of monthly fatalities for each year of FARS data.

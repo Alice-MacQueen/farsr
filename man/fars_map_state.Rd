@@ -4,12 +4,15 @@
 \alias{fars_map_state}
 \title{Plot FARS fatalities for a state and year.}
 \usage{
-make_filename(year)
+fars_map_state(state.num, year, path = "inst/extdata")
 }
 \arguments{
 \item{state.num}{The integer number of the state to be plotted, from 1-56.}
 
 \item{year}{The year to be plotted}
+
+\item{path}{The path to the FARS data file to read. The default is the path
+to the three supplied raw data files.}
 }
 \value{
 A maps object.

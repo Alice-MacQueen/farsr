@@ -4,7 +4,7 @@
 \alias{fars_read}
 \title{Read Fatality Analysis Reporting System data}
 \usage{
-fars_read(filename)
+fars_read(filename, path = "inst/extdata")
 }
 \arguments{
 \item{filename}{The name of the FARS data file to read.}

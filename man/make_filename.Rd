@@ -20,5 +20,4 @@ A filename for a file containing FARS data.
 \dontrun{make_filename(year = 2014)}   # Makes FARS filename for the year 2014.
 \dontrun{make_filename(year = 14)}     # Will not make a working FARS filename.
 
-
 }

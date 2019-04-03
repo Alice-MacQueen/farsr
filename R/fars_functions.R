@@ -3,8 +3,6 @@
 #' @description \code{fars_read} reads in Fatality Analysis Reporting System (FARS) data
 #'for a given \code{filename}, if the file exists.
 #'
-#' @usage fars_read(filename)
-#'
 #' @param filename The name of the FARS data file to read.
 #' @param path The path to the FARS data file to read. The default is the path
 #' to the three supplied raw data files.
@@ -41,8 +39,6 @@ fars_read <- function(filename, path = "inst/extdata") {
 #' @description \code{make_filename} creates a Fatality Analysis Reporting System
 #' (FARS) filename for a given four digit \code{year}.
 #'
-#' @usage make_filename(year)
-#'
 #' @param year The year you want to make a FARS filename for.
 #'
 #' @return A filename for a file containing FARS data.
@@ -62,10 +58,10 @@ make_filename <- function(year) {
 #' @description Reads in Fatality Analysis Reporting System data for one or more
 #' years.
 #'
-#' @usage fars_read_years(years)
-#'
 #' @param years A year or vector of four-digit years for which you want to read
 #' in FARS data.
+#' @param path The path to the FARS data file to read. The default is the path
+#' to the three supplied raw data files.
 #'
 #' @return  A table or list of tables of FARS data.
 #'
@@ -76,13 +72,13 @@ make_filename <- function(year) {
 #' \dontrun{fars_read_years(years = 14)}    # Results in an invalid year error.
 #'
 #' @export
-fars_read_years <- function(years) {
+fars_read_years <- function(years, path = "inst/extdata") {
   lapply(years, function(year) {
     file <- make_filename(year)
     tryCatch({
-      dat <- fars_read(file)
+      dat <- fars_read(file, path = path)
       dplyr::mutate(dat, year = year) %>%
-        dplyr::select(MONTH, year)
+        dplyr::select(.data$MONTH, year)
     }, error = function(e) {
       warning("invalid year: ", year)
       return(NULL)
@@ -95,9 +91,9 @@ fars_read_years <- function(years) {
 #' @description Creates summaries of monthly fatalities using Fatality Analysis
 #' Reporting System data for a specified year or years.
 #'
-#' @usage fars_summarize_years(years)
-#'
 #' @param years The year or years to get monthly summaries of fatalities for.
+#' @param path The path to the FARS data file to read. The default is the path
+#' to the three supplied raw data files.
 #'
 #' @return A summary table of monthly fatalities for each year of FARS data.
 #'
@@ -107,15 +103,16 @@ fars_read_years <- function(years) {
 #' \dontrun{fars_summarize_years(years = years)}     # Summary table for 2013-2015.
 #' \dontrun{fars_summarize_years(years = 14)}        # Will return an error.
 #'
-#' @import readr tidyr magrittr dplyr
+#' @import readr tidyr dplyr
+#' @importFrom magrittr %>%
 #'
 #' @export
-fars_summarize_years <- function(years) {
-  dat_list <- fars_read_years(years)
+fars_summarize_years <- function(years, path = "inst/extdata") {
+  dat_list <- fars_read_years(years, path = path)
   dplyr::bind_rows(dat_list) %>%
-    dplyr::group_by(year, MONTH) %>%
+    dplyr::group_by(.data$year, .data$MONTH) %>%
     dplyr::summarize(n = n()) %>%
-    tidyr::spread(year, n)
+    tidyr::spread(.data$year, n)
 }
 
 #' @title Plot FARS fatalities for a state and year.
@@ -123,10 +120,10 @@ fars_summarize_years <- function(years) {
 #' @description Makes a plot of Fatality Analysis Reporting System (FARS)
 #' data for a given state number and year.
 #'
-#' @usage make_filename(year)
-#'
 #' @param year The year to be plotted
 #' @param state.num The integer number of the state to be plotted, from 1-56.
+#' @param path The path to the FARS data file to read. The default is the path
+#' to the three supplied raw data files.
 #'
 #' @return A maps object.
 #'
@@ -137,14 +134,14 @@ fars_summarize_years <- function(years) {
 #' @import dplyr readr maps graphics
 #'
 #' @export
-fars_map_state <- function(state.num, year) {
+fars_map_state <- function(state.num, year, path = "inst/extdata") {
   filename <- farsr::make_filename(year)
-  data <- farsr::fars_read(filename)
+  data <- farsr::fars_read(filename, path = path)
   state.num <- as.integer(state.num)
 
   if(!(state.num %in% unique(data$STATE)))
     stop("invalid STATE number: ", state.num)
-  data.sub <- dplyr::filter(data, STATE == state.num)
+  data.sub <- dplyr::filter(data, .data$STATE == state.num)
   if(nrow(data.sub) == 0L) {
     message("no accidents to plot")
     return(invisible(NULL))

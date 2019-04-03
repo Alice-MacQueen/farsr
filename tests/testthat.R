@@ -6,5 +6,5 @@ test_that("fars_read works", {
 })
 
 test_that("fars_read_years works", {
-  expect_error(fars_read_years(years = 14))
+  expect_warning(fars_read_years(years = 14))
 })
