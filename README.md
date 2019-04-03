@@ -1,4 +1,6 @@
-# farsr
+# farsr ![alt text][travisbuild]
+
+[travisbuild]: https://travis-ci.org/Alice-MacQueen/farsr.svg?branch=master
 
 Fatality Analysis Reporting System Data R package.
 
