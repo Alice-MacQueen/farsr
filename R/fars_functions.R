@@ -10,19 +10,25 @@
 #' @return A table of FARS data.
 #'
 #' @examples
-#'fars_read(filename = "data/accident_2013.csv.bz2")
-#'fars_read(filename = "data/accident_2014.csv.bz2")
-#'fars_read(filename = "data/accident_2015.csv.bz2")
-#'\dontrun{fars_read(filename = "file_does_not_exist.csv")} # Results in an error
+#'fars_read(filename = "accident_2013.csv.bz2")
+#'fars_read(filename = "accident_2014.csv.bz2"))
+#'fars_read(filename = "accident_2015.csv.bz2")
+#'\dontrun{fars_read(filename = "file_does_not_exist.csv", path = "bad/path")} # Results in an error
 #'
 #' @import readr
 #'
-fars_read <- function(filename) {
-  if(!file.exists(filename))
-    stop("file '", filename, "' does not exist")
-  data <- suppressMessages({
-    readr::read_csv(filename, progress = FALSE)
+fars_read <- function(filename, path = "extdata") {
+  if(!file.exists(file.path(path, filename)))
+    stop("file '", filename, "' does not exist on this path")
+  if(path == "extdata"){
+    data <- suppressMessages({
+      readr::read_csv(system.file("extdata", filename, package = "farsr"), progress = FALSE)
   })
+  } else{
+  data <- suppressMessages({
+    readr::read_csv(file.path(path, filename), progress = FALSE)
+  })
+  }
   dplyr::tbl_df(data)
 }
 
@@ -44,7 +50,7 @@ fars_read <- function(filename) {
 #'
 make_filename <- function(year) {
   year <- as.integer(year)
-  sprintf("data/accident_%d.csv.bz2", year)
+  sprintf("accident_%d.csv.bz2", year)
 }
 
 #' @title Read in one or more years of FARS data.
